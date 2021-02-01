@@ -1,8 +1,39 @@
-import React, { useState, useEffect } from "react";
-import logo from "../../tldv-logo.svg";
-import "./App.css";
-import { getVideos } from "../../api";
-import VideoResponse from "../../interfaces/videos/videos.interface";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import logo from '../../tldv-logo.svg';
+import './App.css';
+import { getVideos } from '../../api';
+import VideoResponse from '../../interfaces/videos/videos.interface';
+import VideoCarousel from '../VideoCarousel';
+import Container from '../Container';
+
+const Header = styled.header`
+  position: fixed;
+  left: 0;
+  right: 0;
+  background-color: #f9f9f9;
+`;
+
+const Logo = styled.img`
+  width: 80px;
+  margin: 16px;
+`;
+
+const Title = styled.h1`
+  font-size: 32px;
+  font-family: Fraunces, serif;
+  margin: 16px;
+`;
+
+const Content = styled.div`
+  padding-top: 80px;
+`;
+
+const InnerContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 
 function App() {
   const [videos, setVideos] = useState<Array<VideoResponse>>([]);
@@ -17,11 +48,20 @@ function App() {
 
   console.log(videos);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>Video Gallery</h1>
-      </header>
+    <div className='App'>
+      <Header>
+        <Container>
+          <InnerContainer>
+            <Logo src={logo} alt='logo' />
+            <Title>Video Gallery</Title>
+          </InnerContainer>
+        </Container>
+      </Header>
+      <Content>
+        {videos.length > 0 && (
+          <VideoCarousel title='Recently added' videos={videos} />
+        )}
+      </Content>
     </div>
   );
 }
