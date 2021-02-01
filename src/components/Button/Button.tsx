@@ -1,7 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledButton = styled.button`
+interface StyledButtonProps {
+  primary?: boolean;
+  fullWidth?: boolean;
+  disabled?: boolean;
+}
+
+const StyledButton = styled.button<StyledButtonProps>`
   background-color: #e8e8e8;
   color: #1d1dff;
   border: none;
@@ -16,8 +22,8 @@ const StyledButton = styled.button`
     background: #d8d8d8;
   }
 
-  ${({ primaryButton }: { primaryButton?: boolean }) =>
-    primaryButton &&
+  ${({ primary }: { primary?: boolean }) =>
+    primary &&
     `
     background-color: #1d1dff;
     color: white;
@@ -47,7 +53,7 @@ interface ButtonProps {
   children: React.ReactNode;
   fullWidth?: boolean;
   primary?: boolean;
-  type?: string;
+  type?: 'button' | 'submit' | 'reset' | undefined;
 }
 
 const Button = (props: ButtonProps) => {
@@ -55,7 +61,7 @@ const Button = (props: ButtonProps) => {
   return (
     <StyledButton
       onClick={onClick}
-      primaryButton={primary}
+      primary={primary}
       disabled={disabled}
       fullWidth={fullWidth}
       type={type}
