@@ -4,7 +4,7 @@ import VideoResponse from '../../interfaces/videos/videos.interface';
 
 // Components
 import Thumbnail from '../Thumbnail';
-import Container from '../Container'
+import Container from '../Container';
 
 interface VideoCarouselProps {
   videos: VideoResponse[];
@@ -26,7 +26,7 @@ const VideoGalleryContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   padding: 8px;
-  width: 100%
+  width: 100%;
 `;
 
 const VideoCarousel = (props: VideoCarouselProps) => {
@@ -38,6 +38,10 @@ const VideoCarousel = (props: VideoCarouselProps) => {
         <VideoGalleryContainer>
           {videos.map((video) => (
             <Thumbnail
+              id={video._id}
+              key={video._id}
+              title={video.Title}
+              uploadDate={video.createdAt}
               src={`${process.env.REACT_APP_API_URL}${video.thumbnail.formats.thumbnail.url}`}
               alt={video.Title}
             />

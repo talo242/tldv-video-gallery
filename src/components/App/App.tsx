@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import logo from '../../tldv-logo.svg';
 import './App.css';
 import { getVideos } from '../../api';
 import VideoResponse from '../../interfaces/videos/videos.interface';
-import VideoCarousel from '../VideoCarousel';
 import Container from '../Container';
+import Home from '../Home';
+import VideoSingle from '../VideoSingle';
 
 const Header = styled.header`
   position: fixed;
@@ -46,23 +48,31 @@ function App() {
     fetchVideos();
   }, []);
 
-  console.log(videos);
   return (
-    <div className='App'>
-      <Header>
-        <Container>
-          <InnerContainer>
-            <Logo src={logo} alt='logo' />
-            <Title>Video Gallery</Title>
-          </InnerContainer>
-        </Container>
-      </Header>
-      <Content>
-        {videos.length > 0 && (
-          <VideoCarousel title='Recently added' videos={videos} />
-        )}
-      </Content>
-    </div>
+    <Router>
+      <div className='App'>
+        <Header>
+          <Container>
+            <InnerContainer>
+              <Link to="/">
+                <Logo src={logo} alt='logo' />
+              </Link>
+              <Title>Video Gallery</Title>
+            </InnerContainer>
+          </Container>
+        </Header>
+        <Content>
+          <Switch>
+            <Route path='/video/:videoId'>
+              <VideoSingle videos={videos} />
+            </Route>
+            <Route path='/'>
+              <Home videos={videos} />
+            </Route>
+          </Switch>
+        </Content>
+      </div>
+    </Router>
   );
 }
 

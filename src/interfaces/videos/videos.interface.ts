@@ -7,6 +7,7 @@ interface VideoResponse {
   Title: string;
   file: VideoFile;
   thumbnail: Thumbnail;
+  createdAt: Date;
 }
 
 export default VideoResponse;
