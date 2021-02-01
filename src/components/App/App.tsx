@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import logo from '../../tldv-logo.svg';
+import logo from '../../assets/tldv-logo.svg';
 import './App.css';
 import { useDataProvider } from '../../utils/VideoDataProvider';
 // Components
@@ -11,6 +11,7 @@ import Home from '../Home';
 import VideoSingle from '../VideoSingle';
 
 const Header = styled.header`
+  border-top: 1px solid #1D1DFF;
   position: fixed;
   left: 0;
   right: 0;

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Logo from '../../tldv-logo.svg';
+import Logo from '../../assets/tldv-logo.svg';
 
 const LoaderContainer = styled.div`
   width: 100vw;
