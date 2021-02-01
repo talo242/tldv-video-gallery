@@ -1,6 +1,14 @@
-# Getting Started with Create React App
+# tl;dv Coding Challenge
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+See a video gallery using a React app & Strapi CMS
+
+## Getting Started
+Before running any script, make sure to update the local variables using the correct Strapi URL
+Add the URL to your enviromental variables renaming `.env.example` to `.env.local` and replacing 'yourbackendurl' with the correct URL.
+
+Run the project using the Create React App scripts.
 
 ## Available Scripts
 
