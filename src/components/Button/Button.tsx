@@ -47,16 +47,18 @@ interface ButtonProps {
   children: React.ReactNode;
   fullWidth?: boolean;
   primary?: boolean;
+  type?: string;
 }
 
 const Button = (props: ButtonProps) => {
-  const { disabled, children, onClick, fullWidth, primary } = props;
+  const { disabled, children, onClick, fullWidth, primary, type } = props;
   return (
     <StyledButton
       onClick={onClick}
       primaryButton={primary}
       disabled={disabled}
       fullWidth={fullWidth}
+      type={type}
     >
       {children}
     </StyledButton>

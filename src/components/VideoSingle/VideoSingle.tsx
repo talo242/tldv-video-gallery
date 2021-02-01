@@ -7,6 +7,7 @@ import Container from '../Container';
 import Form from '../Form';
 import { FormFields } from '../Form/Form';
 import Button from '../Button';
+import { putVideo } from '../../api';
 
 const VideoContainer = styled.div`
   background-color: black;
@@ -29,6 +30,16 @@ const TitleContainer = styled.div`
   text-align: left;
 `;
 
+const TitleInnerContainer = styled.div`
+  display: flex;
+  align-items: baseline;
+
+  p {
+    margin-left: 8px;
+    color: #b9b9b9;
+  }
+`;
+
 const VideoSingle = () => {
   const data = useDataProvider();
   const [edit, setEdit] = useState<boolean>(false);
@@ -42,14 +53,17 @@ const VideoSingle = () => {
 
   const toggleEditForm = () => setEdit(!edit);
 
-  const onSaveForm = (data: FormFields) => {
-    
+  const onSaveForm = async (data: FormFields) => {
+    putVideo(videoId, data).then(() => {
+      toggleEditForm()
+      window.location.reload();
+    });
   };
 
   const defaultData = {
-    title: currentVideo.Title,
-    slug: currentVideo.slug,
-  }
+    Title: currentVideo.Title,
+    Slug: currentVideo.Slug,
+  };
 
   return (
     <>
@@ -66,15 +80,23 @@ const VideoSingle = () => {
         <Container>
           <ContentContainer>
             <TitleContainer>
-              <h1>{currentVideo.Title}</h1>
-              <p>{currentVideo.slug}</p>
+              <TitleInnerContainer>
+                <h1>{currentVideo.Title}</h1>
+                <p>{currentVideo.Slug}</p>
+              </TitleInnerContainer>
               <p>Uploaded {moment(currentVideo.createdAt).fromNow()}</p>
             </TitleContainer>
             <Button onClick={toggleEditForm}>Edit</Button>
           </ContentContainer>
         </Container>
       </div>
-      {edit && <Form defaultData={defaultData} onSave={onSaveForm} onClose={toggleEditForm} />}
+      {edit && (
+        <Form
+          defaultData={defaultData}
+          onSave={onSaveForm}
+          onClose={toggleEditForm}
+        />
+      )}
     </>
   );
 };

@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import Button from '../Button';
 
 export interface FormFields {
-  title: string;
-  slug: string;
+  Title: string;
+  Slug: string;
 }
 
 interface FormProps {
@@ -75,8 +75,8 @@ const Form = (props: FormProps) => {
   const { onClose, onSave, defaultData } = props;
   const [state, setState] = useState(
     defaultData || {
-      title: '',
-      slug: '',
+      Title: '',
+      Slug: '',
     }
   );
 
@@ -101,16 +101,16 @@ const Form = (props: FormProps) => {
         <FormContent>
           <StyledLabel>
             Title
-            <input name="title" value={state.title} onChange={handleChange} />
+            <input name="Title" value={state.Title} onChange={handleChange} />
           </StyledLabel>
           <StyledLabel>
             Slug
-            <input name="slug" value={state.slug} onChange={handleChange} />
+            <input name="Slug" value={state.Slug} onChange={handleChange} />
           </StyledLabel>
         </FormContent>
         <FormFooter>
           <Button onClick={onClose}>Cancel</Button>
-          <Button primary>Save</Button>
+          <Button type="submit" primary>Save</Button>
         </FormFooter>
       </StyledForm>
     </FormContainer>
