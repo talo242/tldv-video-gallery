@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import logo from '../../tldv-logo.svg';
 import './App.css';
-import { getVideos } from '../../api';
-import VideoResponse from '../../interfaces/videos/videos.interface';
+import { useDataProvider } from '../../utils/VideoDataProvider';
+// Components
+import Loader from '../Loader';
 import Container from '../Container';
 import Home from '../Home';
 import VideoSingle from '../VideoSingle';
@@ -38,24 +39,21 @@ const InnerContainer = styled.div`
 `;
 
 function App() {
-  const [videos, setVideos] = useState<Array<VideoResponse>>([]);
-  useEffect(() => {
-    const fetchVideos = async () => {
-      const response: VideoResponse[] = await getVideos();
-      setVideos(response);
-    };
-
-    fetchVideos();
-  }, []);
+  const data = useDataProvider();
+  if (data.status === 'LOADING') {
+    return <Loader />;
+  } else if (data.status === 'ERROR') {
+    return <p>Error loading videos</p>;
+  }
 
   return (
     <Router>
-      <div className='App'>
+      <div className="App">
         <Header>
           <Container>
             <InnerContainer>
               <Link to="/">
-                <Logo src={logo} alt='logo' />
+                <Logo src={logo} alt="logo" />
               </Link>
               <Title>Video Gallery</Title>
             </InnerContainer>
@@ -63,11 +61,9 @@ function App() {
         </Header>
         <Content>
           <Switch>
-            <Route path='/video/:videoId'>
-              <VideoSingle videos={videos} />
-            </Route>
-            <Route path='/'>
-              <Home videos={videos} />
+            <Route path="/video/:videoId"><VideoSingle /></Route>
+            <Route path="/">
+              <Home videos={data.videos} />
             </Route>
           </Switch>
         </Content>

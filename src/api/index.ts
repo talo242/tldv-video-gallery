@@ -1,17 +1,17 @@
-import axios, { AxiosError } from "axios";
-import VideoResponse from "../interfaces/videos/videos.interface";
+import axios, { AxiosError } from 'axios';
+import VideoResponse from '../interfaces/videos/videos.interface';
 
 const client = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
-  responseType: "json",
+  responseType: 'json',
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 
 export const getVideos = async () => {
   try {
-    const response = await client.get<Array<VideoResponse>>("/videos");
+    const response = await client.get<Array<VideoResponse>>('/videos');
     return response.data;
   } catch (err) {
     if (err && err.response) {
@@ -22,3 +22,4 @@ export const getVideos = async () => {
     throw err;
   }
 };
+

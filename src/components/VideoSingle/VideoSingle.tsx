@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import moment from 'moment';
+import { useDataProvider } from '../../utils/VideoDataProvider';
 import VideoResponse from '../../interfaces/videos/videos.interface';
 import Container from '../Container';
 
@@ -26,12 +27,12 @@ const ContentContainer = styled.div`
   width: 100%;
 `;
 
-const VideoSingle = (props: VideoSingleProps) => {
-  const { videos } = props;
+const VideoSingle = () => {
+  const data = useDataProvider();
   const { videoId } = useParams<{ videoId: string }>();
 
-  const currentVideo = videos.find((video) => video._id === videoId);
-
+  const currentVideo = data.videos.find((video) => video._id === videoId);
+  
   if (!currentVideo) {
     return <p>Video not found</p>;
   }
